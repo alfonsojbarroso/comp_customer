@@ -12,7 +12,7 @@ import com.comp_customer.service.CustomerService;
 import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/v1")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -21,7 +21,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
+    @GetMapping("/customer")
     public Flux<CustomerDto> rent(@RequestHeader(name = "flow") String flow) {
         HeadersDto headersDto = HeadersDto.builder().flow(flow).build();
         return customerService.findAll(headersDto);
