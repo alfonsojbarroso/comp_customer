@@ -8,6 +8,7 @@ import com.comp_customer.dto.CustomerDto;
 import com.comp_customer.dto.HeadersDto;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service 
 public class CustomerService {
@@ -20,13 +21,19 @@ public class CustomerService {
         this.webClient = webClient;
     }
 
-
-
     public Flux<CustomerDto> findAll(HeadersDto headersDto) {
         return webClient.get()
                 .uri(customerUrl)
                 .retrieve()
                 .bodyToFlux(CustomerDto.class);
+    }
+
+    public Mono<CustomerDto> create(CustomerDto customerDto) {
+        return webClient.post()
+                .uri(customerUrl)
+                .bodyValue(customerDto)
+                .retrieve()
+                .bodyToMono(CustomerDto.class);
     }
 
 }
