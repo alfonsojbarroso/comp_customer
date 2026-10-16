@@ -28,7 +28,7 @@ public class CustomerController {
 
     @GetMapping("/customer")
     public Flux<CustomerDto> rent(@RequestHeader(name = "flow") String flow) {
-        HeadersDto headersDto = HeadersDto.builder().flow(flow).build();
+        HeadersDto headersDto = new HeadersDto(flow);
         return customerService.findAll(headersDto);
 
     }
